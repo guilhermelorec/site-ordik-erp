@@ -4,7 +4,9 @@ it('serves the sitemap with the public pages', function () {
     $this->get('/sitemap.xml')
         ->assertOk()
         ->assertHeader('Content-Type', 'application/xml')
-        ->assertSee(route('home'));
+        ->assertSee(route('home'))
+        ->assertSee(route('solutions.show', 'oficinas'))
+        ->assertSee(route('blog.show', 'controle-de-estoque-como-organizar'));
 });
 
 it('hides the site from crawlers outside production', function () {
