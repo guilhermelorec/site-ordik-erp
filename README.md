@@ -29,6 +29,15 @@ php artisan key:generate   # ou preencha APP_KEY manualmente
 docker compose up -d --build
 ```
 
+## Deploy na Vercel
+
+O `vercel.json` usa o runtime comunitário `vercel-php` (PHP 8.3) na região `gru1`. A Vercel não roda `artisan` no build, então:
+
+- os assets do Filament ficam versionados em `public/`: rode `php artisan filament:assets` ao atualizar o Filament;
+- as migrations rodam fora da Vercel, apontando para o banco de produção: `DB_CONNECTION=pgsql DB_URL=... php artisan migrate --force`.
+
+Defina como variáveis do projeto: `APP_KEY`, `APP_URL`, `DB_URL` (ou `DATABASE_URL`), `LEADS_NOTIFY_EMAIL`, `ORDIK_CONTACT_EMAIL` e as `MAIL_*` quando houver SMTP.
+
 ## Variáveis do projeto
 
 | Variável | Uso |
