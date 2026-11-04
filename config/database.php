@@ -86,7 +86,9 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'url' => env('DB_URL', env('DATABASE_URL')),
+            // ponytail: conexão direta, sem pooler. O pooler do Neon quebra transações com prepares
+            // do PDO. Ative emulação de prepares e use DATABASE_URL se faltarem conexões.
+            'url' => env('DB_URL', env('DATABASE_URL_UNPOOLED', env('DATABASE_URL'))),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
             'database' => env('DB_DATABASE', 'laravel'),
