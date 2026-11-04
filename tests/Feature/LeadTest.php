@@ -81,3 +81,12 @@ it('rate limits the lead form', function () {
 
     $this->post('/contato', validLead())->assertTooManyRequests();
 });
+
+it('rate limits each visitor separately behind a proxy', function () {
+    foreach (range(1, 6) as $i) {
+        $response = $this->withServerVariables(['REMOTE_ADDR' => '10.0.0.1', 'HTTP_X_FORWARDED_FOR' => '203.0.113.'.$i])
+            ->post('/contato', validLead());
+
+        expect($response->status())->toBe(302);
+    }
+});
