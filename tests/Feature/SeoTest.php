@@ -52,3 +52,9 @@ it('uses APP_URL in production but keeps the current host on previews', function
     'production' => [true, 'https://ordik.com.br/'],
     'preview' => [false, 'https://localhost'],
 ]);
+
+it('keeps the sitemap template safe when short open tags are enabled', function () {
+    expect(file_get_contents(resource_path('views/sitemap.blade.php')))->not->toContain('<?xml');
+
+    $this->get('/sitemap.xml')->assertSee('<?xml version="1.0" encoding="UTF-8"?>', false);
+});
