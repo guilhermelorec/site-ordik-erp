@@ -1,6 +1,8 @@
-@props(['id' => 'pedido', 'dark' => false])
+@props(['dark' => false])
 
-{{-- Formulário único de lead, usado na página de contato e no fim das páginas de produto. --}}
+@php($id = 'pedido')
+
+{{-- Formulário de lead: um por página, e o envio sempre volta para #pedido. --}}
 <form id="{{ $id }}" method="POST" action="{{ route('contact.store') }}" novalidate
     {{ $attributes->class(['bg-white p-6 text-ink sm:p-8 rounded-md', 'shadow-sheet' => ! $dark]) }}>
     @csrf
