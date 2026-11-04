@@ -7,6 +7,7 @@ Route::view('/', 'pages.home')->name('home');
 Route::view('/funcionalidades', 'pages.features')->name('features');
 Route::view('/pdv', 'pages.pdv')->name('pdv');
 Route::view('/implantacao', 'pages.implantation')->name('implantation');
+Route::view('/empresa', 'pages.about')->name('about');
 Route::view('/contato', 'pages.contact')->name('contact');
 
 Route::get('/para/{slug}', fn (string $slug) => view('pages.solution', [
@@ -20,7 +21,7 @@ Route::post('/contato', [LeadController::class, 'store'])
 
 Route::get('/sitemap.xml', fn () => response()
     ->view('sitemap', ['urls' => [
-        ...array_map(route(...), ['home', 'features', 'pdv', 'implantation', 'contact']),
+        ...array_map(route(...), ['home', 'features', 'pdv', 'implantation', 'about', 'contact']),
         ...array_map(fn (string $slug) => route('solutions.show', $slug), array_keys(config('ordik.solutions'))),
     ]])
     ->header('Content-Type', 'application/xml'))->name('sitemap');

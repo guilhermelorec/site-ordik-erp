@@ -8,6 +8,7 @@ it('renders every public page', function (string $url) {
     '/funcionalidades',
     '/pdv',
     '/implantacao',
+    '/empresa',
     '/para/lojas',
     '/para/oficinas',
     '/para/distribuidoras',
