@@ -19,6 +19,12 @@ class StoreLeadRequest extends FormRequest
         $this->merge(['whatsapp' => preg_replace('/\D/', '', (string) $this->input('whatsapp'))]);
     }
 
+    // O formulário fica no fim das páginas: o visitante precisa voltar direto aos erros.
+    protected function getRedirectUrl(): string
+    {
+        return url()->previous().'#pedido';
+    }
+
     public function rules(): array
     {
         return [

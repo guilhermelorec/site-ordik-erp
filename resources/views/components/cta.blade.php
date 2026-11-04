@@ -11,7 +11,7 @@
             <p class="mt-5 text-sm text-indigo-100">Respondemos em até 1 dia útil.</p>
         </div>
         <div class="lg:col-span-6 lg:col-start-7">
-            <x-lead-form id="pedido-rodape" dark />
+            <x-lead-form dark />
         </div>
     </div>
 </section>

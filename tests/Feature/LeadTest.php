@@ -24,7 +24,7 @@ beforeEach(function () {
 
 it('stores a lead, e-mails the team and flashes success', function () {
     $this->from('/contato')->post('/contato', validLead())
-        ->assertRedirect('/contato')
+        ->assertRedirect('/contato#pedido')
         ->assertSessionHas('success');
 
     $lead = Lead::sole();
@@ -40,7 +40,7 @@ it('keeps the lead when the notification e-mail fails', function () {
     Mail::shouldReceive('to')->andThrow(new RuntimeException('SMTP fora do ar'));
 
     $this->from('/contato')->post('/contato', validLead())
-        ->assertRedirect('/contato')
+        ->assertRedirect('/contato#pedido')
         ->assertSessionHas('success');
 
     expect(Lead::count())->toBe(1);
@@ -53,7 +53,7 @@ it('validates the lead fields', function () {
         'whatsapp' => '123',
         'segment' => 'Inválido',
         'branches' => '500 unidades',
-    ]))->assertRedirect('/contato')
+    ]))->assertRedirect('/contato#pedido')
         ->assertSessionHasErrors(['name', 'email', 'whatsapp', 'segment', 'branches']);
 
     expect(Lead::count())->toBe(0);
@@ -67,7 +67,7 @@ it('shows validation messages in Portuguese', function () {
 
 it('silently drops honeypot submissions', function () {
     $this->from('/contato')->post('/contato', validLead(['website' => 'http://spam.example']))
-        ->assertRedirect('/contato')
+        ->assertRedirect('/contato#pedido')
         ->assertSessionHas('success');
 
     expect(Lead::count())->toBe(0);
