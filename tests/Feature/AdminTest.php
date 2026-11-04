@@ -30,6 +30,13 @@ it('redirects guests to the admin login', function () {
     $this->get('/admin/leads')->assertRedirect('/admin/login');
 });
 
+it('uses relative brand assets so they follow the current host and scheme', function () {
+    $this->get('/admin/login')
+        ->assertOk()
+        ->assertSee('src="/brand/ordik-logo.svg"', false)
+        ->assertSee('href="/brand/ordik-icon.svg"', false);
+});
+
 it('lists, filters and exports leads', function () {
     $this->actingAs(User::factory()->create());
     $novo = lead();
