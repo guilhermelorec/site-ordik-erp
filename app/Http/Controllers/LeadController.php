@@ -16,7 +16,7 @@ class LeadController extends Controller
 
         // Honeypot preenchido = bot. Responde como sucesso para não dar pistas.
         if ($request->filled('website')) {
-            return back()->with('success', $success);
+            return back()->withFragment('pedido')->with('success', $success);
         }
 
         // Página de onde veio o pedido, para saber qual conteúdo gera lead.
@@ -29,6 +29,6 @@ class LeadController extends Controller
             rescue(fn () => Mail::to($to)->send(new NewLead($lead)));
         }
 
-        return back()->with('success', $success);
+        return back()->withFragment('pedido')->with('success', $success);
     }
 }
