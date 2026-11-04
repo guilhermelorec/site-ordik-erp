@@ -14,3 +14,12 @@ if (demo) {
         status.textContent = '';
     });
 }
+
+// Abas com <details name>: a aba aberta não fecha ao clicar de novo, para a tela não sumir.
+document.querySelectorAll('[data-pillars] summary').forEach((summary) => {
+    summary.addEventListener('click', (event) => {
+        if (summary.parentElement.open) {
+            event.preventDefault();
+        }
+    });
+});

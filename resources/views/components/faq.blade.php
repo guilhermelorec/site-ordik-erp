@@ -1,6 +1,6 @@
 @props(['items', 'title' => 'Perguntas frequentes'])
 
-<section class="container-site band grid gap-8 lg:grid-cols-12">
+<section class="container-site band grid gap-8 pb-0 lg:grid-cols-12 lg:pb-0">
     <h2 class="title-section lg:col-span-4">{{ $title }}</h2>
     <div class="lg:col-span-7 lg:col-start-6">
         @foreach ($items as $question => $answer)
