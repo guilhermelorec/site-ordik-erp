@@ -65,5 +65,5 @@
     </div>
 
     <button type="submit" class="btn-primary mt-6 w-full sm:w-auto">Pedir demonstração</button>
-    <p class="mt-3 text-xs text-muted">Usamos seus dados só para responder a este pedido. Veja a @if (Route::has('privacy'))<a href="{{ route('privacy') }}" class="underline">política de privacidade</a>@else política de privacidade @endif.</p>
+    <p class="mt-3 text-xs text-muted">Usamos seus dados só para responder a este pedido. Veja a <a href="{{ route('privacy') }}" class="underline">política de privacidade</a>.</p>
 </form>

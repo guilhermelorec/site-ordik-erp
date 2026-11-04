@@ -33,3 +33,7 @@ it('renders meta tags and JSON-LD on the home page', function () {
         ->assertSee('"@type":"Organization"', false)
         ->assertSee('"@type":"SoftwareApplication"', false);
 });
+
+it('leaves robots.txt to the route instead of a static file', function () {
+    expect(public_path('robots.txt'))->not->toBeFile();
+});

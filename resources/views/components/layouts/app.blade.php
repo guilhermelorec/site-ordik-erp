@@ -13,7 +13,6 @@
         'about' => 'Empresa',
         'blog.index' => 'Blog',
     ];
-    $navExisting = array_filter($nav, fn (string $route) => Route::has($route), ARRAY_FILTER_USE_KEY);
 @endphp
 
 <!DOCTYPE html>
@@ -40,25 +39,23 @@
             </a>
 
             <nav class="hidden items-center gap-7 lg:flex" aria-label="Principal">
-                @if (Route::has('solutions.show'))
-                    <div class="group relative">
-                        <a href="{{ route('home') }}#para-quem" class="flex items-center gap-1 text-sm font-medium hover:text-indigo-600">
-                            Para quem é
-                            <x-heroicon-m-chevron-down class="size-4" />
-                        </a>
-                        <div class="invisible absolute -left-4 top-full w-72 pt-3 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                            <div class="rounded-md border border-line bg-white p-2 shadow-sheet">
-                                @foreach (config('ordik.solutions', []) as $slug => $solution)
-                                    <a href="{{ route('solutions.show', $slug) }}" class="block rounded-sm px-3 py-2 hover:bg-paper">
-                                        <span class="block text-sm font-medium">{{ $solution['name'] }}</span>
-                                        <span class="block text-xs text-muted">{{ $solution['short'] }}</span>
-                                    </a>
-                                @endforeach
-                            </div>
+                <div class="group relative">
+                    <a href="{{ route('home') }}#para-quem" class="flex items-center gap-1 text-sm font-medium hover:text-indigo-600">
+                        Para quem é
+                        <x-heroicon-m-chevron-down class="size-4" />
+                    </a>
+                    <div class="invisible absolute -left-4 top-full w-72 pt-3 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                        <div class="rounded-md border border-line bg-white p-2 shadow-sheet">
+                            @foreach (config('ordik.solutions') as $slug => $solution)
+                                <a href="{{ route('solutions.show', $slug) }}" class="block rounded-sm px-3 py-2 hover:bg-paper">
+                                    <span class="block text-sm font-medium">{{ $solution['name'] }}</span>
+                                    <span class="block text-xs text-muted">{{ $solution['short'] }}</span>
+                                </a>
+                            @endforeach
                         </div>
                     </div>
-                @endif
-                @foreach ($navExisting as $route => $label)
+                </div>
+                @foreach ($nav as $route => $label)
                     <a href="{{ route($route) }}" @class([
                         'text-sm font-medium hover:text-indigo-600',
                         'text-indigo-600' => request()->routeIs(Str::before($route, '.').'*'),
@@ -67,9 +64,7 @@
             </nav>
 
             <div class="hidden lg:block">
-                @if (Route::has('contact'))
-                    <a href="{{ route('contact') }}" class="btn-primary py-2">Pedir demonstração</a>
-                @endif
+                <a href="{{ route('contact') }}" class="btn-primary py-2">Pedir demonstração</a>
             </div>
 
             <details class="group lg:hidden">
@@ -78,17 +73,13 @@
                     <x-heroicon-o-x-mark class="hidden size-7 group-open:block" />
                 </summary>
                 <div class="absolute inset-x-0 top-[4.25rem] border-b border-line bg-white p-5 shadow-sheet">
-                    @foreach (config('ordik.solutions', []) as $slug => $solution)
-                        @if (Route::has('solutions.show'))
-                            <a href="{{ route('solutions.show', $slug) }}" class="block py-2 font-medium">{{ $solution['name'] }}</a>
-                        @endif
+                    @foreach (config('ordik.solutions') as $slug => $solution)
+                        <a href="{{ route('solutions.show', $slug) }}" class="block py-2 font-medium">{{ $solution['name'] }}</a>
                     @endforeach
-                    @foreach ($navExisting as $route => $label)
+                    @foreach ($nav as $route => $label)
                         <a href="{{ route($route) }}" class="block py-2 font-medium">{{ $label }}</a>
                     @endforeach
-                    @if (Route::has('contact'))
-                        <a href="{{ route('contact') }}" class="btn-primary mt-3 w-full">Pedir demonstração</a>
-                    @endif
+                    <a href="{{ route('contact') }}" class="btn-primary mt-3 w-full">Pedir demonstração</a>
                 </div>
             </details>
         </div>
@@ -107,7 +98,7 @@
             <nav class="md:col-span-3" aria-label="Produto">
                 <h2 class="font-semibold text-white">Produto</h2>
                 <ul class="mt-3 space-y-1.5 text-sm">
-                    @foreach ($navExisting as $route => $label)
+                    @foreach ($nav as $route => $label)
                         <li><a href="{{ route($route) }}" class="hover:text-white hover:underline">{{ $label }}</a></li>
                     @endforeach
                 </ul>
@@ -115,14 +106,10 @@
             <nav class="md:col-span-4" aria-label="Institucional">
                 <h2 class="font-semibold text-white">Fale com a gente</h2>
                 <ul class="mt-3 space-y-1.5 text-sm">
-                    <li><a href="mailto:{{ config('ordik.contact_email', 'comercial@ordik.com.br') }}" class="hover:text-white hover:underline">{{ config('ordik.contact_email', 'comercial@ordik.com.br') }}</a></li>
-                    @if (Route::has('contact'))
-                        <li><a href="{{ route('contact') }}" class="hover:text-white hover:underline">Pedir demonstração</a></li>
-                    @endif
-                    @if (Route::has('privacy'))
-                        <li><a href="{{ route('privacy') }}" class="hover:text-white hover:underline">Privacidade</a></li>
-                        <li><a href="{{ route('terms') }}" class="hover:text-white hover:underline">Termos de uso</a></li>
-                    @endif
+                    <li><a href="mailto:{{ config('ordik.contact_email') }}" class="hover:text-white hover:underline">{{ config('ordik.contact_email') }}</a></li>
+                    <li><a href="{{ route('contact') }}" class="hover:text-white hover:underline">Pedir demonstração</a></li>
+                    <li><a href="{{ route('privacy') }}" class="hover:text-white hover:underline">Privacidade</a></li>
+                    <li><a href="{{ route('terms') }}" class="hover:text-white hover:underline">Termos de uso</a></li>
                 </ul>
             </nav>
         </div>
