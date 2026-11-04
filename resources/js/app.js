@@ -1,13 +1,16 @@
-import { createApp } from 'vue';
+// Demo do hero: o estado "confirmado" é todo em CSS, a partir de data-done.
+const demo = document.querySelector('[data-demo]');
 
-// Monta cada componente Vue só se o elemento existir na página.
-// Props vêm do atributo data-props (JSON) do elemento.
-const components = {};
+if (demo) {
+    const status = demo.querySelector('[data-demo-live]');
 
-for (const [selector, load] of Object.entries(components)) {
-    const el = document.querySelector(selector);
-    if (!el) continue;
-    load().then(({ default: component }) => {
-        createApp(component, JSON.parse(el.dataset.props || '{}')).mount(el);
+    demo.querySelector('[data-demo-confirm]').addEventListener('click', () => {
+        demo.toggleAttribute('data-done', true);
+        status.textContent = 'Venda confirmada. Estoque baixado e conta a receber criada.';
+    });
+
+    demo.querySelector('[data-demo-reset]').addEventListener('click', () => {
+        demo.toggleAttribute('data-done', false);
+        status.textContent = '';
     });
 }
