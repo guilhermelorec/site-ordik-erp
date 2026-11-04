@@ -28,10 +28,10 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->brandName('Ordik ERP')
-            ->brandLogo(asset('brand/ordik-logo.svg'))
-            ->darkModeBrandLogo(asset('brand/ordik-logo-white.svg'))
+            ->brandLogo('/brand/ordik-logo.svg')
+            ->darkModeBrandLogo('/brand/ordik-logo-white.svg')
             ->brandLogoHeight('2.25rem')
-            ->favicon(asset('brand/ordik-icon.svg'))
+            ->favicon('/brand/ordik-icon.svg')
             ->colors([
                 'primary' => Color::hex('#4F46E5'),
                 'gray' => Color::Slate,
