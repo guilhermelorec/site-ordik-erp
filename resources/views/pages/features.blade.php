@@ -1,16 +1,16 @@
 <x-layouts.app title="Funcionalidades do ERP" description="Conheça os módulos do Ordik ERP: CRM, vendas, controle de estoque, compras, ordens de serviço, PDV, financeiro e gestão por empresa e filial.">
     <x-page-hero title="Tudo o que a operação precisa, sem sistema paralelo" text="Cada módulo usa os mesmos cadastros e conversa com os outros. O que você registra em um lugar já aparece onde precisa aparecer." />
 
-    <nav class="sticky top-[4.25rem] z-30 border-b border-line bg-white" aria-label="Módulos">
-        <ul class="container-site flex gap-5 overflow-x-auto py-3 text-sm font-medium whitespace-nowrap">
+    <nav class="sticky top-[5.25rem] z-30 mt-6" aria-label="Módulos">
+        <div class="container-site"><ul class="flex gap-5 overflow-x-auto rounded-full bg-white px-6 py-3 text-sm font-medium whitespace-nowrap shadow-float">
             @foreach (config('ordik.modules') as $slug => $module)
                 <li><a href="#{{ $slug }}" class="hover:text-indigo-600">{{ $module['name'] }}</a></li>
             @endforeach
-        </ul>
+        </ul></div>
     </nav>
 
     @foreach (config('ordik.modules') as $slug => $module)
-        <section id="{{ $slug }}" @class(['scroll-mt-32', 'bg-white' => $loop->even])>
+        <section id="{{ $slug }}" @class(['scroll-mt-40', 'bg-white' => $loop->even])>
             <div class="container-site band grid gap-10 lg:grid-cols-12">
                 <div @class(['lg:col-span-5' => $module['image'], 'lg:col-span-4' => ! $module['image']])>
                     <h2 class="title-section">{{ $module['name'] }}</h2>

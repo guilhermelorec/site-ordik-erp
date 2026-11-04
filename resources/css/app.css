@@ -4,28 +4,29 @@
 
 /* Paleta, escala e pesos fechados: os padrões do Tailwind são zerados de propósito. */
 @theme {
-    --font-sans: 'Barlow', ui-sans-serif, system-ui, sans-serif;
-    --font-display: 'Barlow Condensed', 'Arial Narrow', ui-sans-serif, sans-serif;
+    --font-sans: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Sora', ui-sans-serif, system-ui, sans-serif;
 
     --color-*: initial;
     --color-transparent: transparent;
     --color-current: currentColor;
     --color-white: #ffffff;
-    --color-paper: #f2f3f8;
+    --color-paper: #f5f6fb;
     --color-line: #d8dae8;
     --color-muted: #52557a;
     --color-ink: #15143a;
-    --color-indigo-950: #1e1b5e;
+    --color-indigo-950: #19164f;
     --color-indigo-800: #2f2a8f;
     --color-indigo-600: #4f46e5;
     --color-indigo-300: #a5b4fc;
     --color-indigo-100: #e3e5fb;
+    --color-indigo-50: #eff0fd;
     --color-tag: #ffd233;
     --color-tag-deep: #f2bb00;
     --color-paid: #0b6e4f;
     --color-danger: #b3261e;
 
-    /* Escala 1,333 a partir de 17px. */
+    /* Escala 1,25 a partir de 17px. */
     --text-*: initial;
     --text-xs: 0.8125rem;
     --text-xs--line-height: 1.45;
@@ -33,25 +34,28 @@
     --text-sm--line-height: 1.5;
     --text-base: 1.0625rem;
     --text-base--line-height: 1.6;
-    --text-lg: 1.3125rem;
-    --text-lg--line-height: 1.45;
-    --text-h3: 1.75rem;
-    --text-h3--line-height: 1.15;
-    --text-h2: 2.5rem;
-    --text-h2--line-height: 1.05;
-    --text-h1: 3.5rem;
-    --text-h1--line-height: 1;
-    --text-display: 5.5rem;
-    --text-display--line-height: 0.95;
+    --text-lg: 1.25rem;
+    --text-lg--line-height: 1.5;
+    --text-h3: 1.375rem;
+    --text-h3--line-height: 1.25;
+    --text-h2: 2.125rem;
+    --text-h2--line-height: 1.15;
+    --text-h1: 2.75rem;
+    --text-h1--line-height: 1.12;
+    --text-display: 3.375rem;
+    --text-display--line-height: 1.08;
 
+    /* Hierarquia de cantos: campo, card interno, card, painel. */
     --radius-*: initial;
-    --radius-sm: 3px;
-    --radius-md: 6px;
-    --radius-lg: 10px;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 24px;
+    --radius-xl: 36px;
     --radius-full: 999px;
 
     --shadow-*: initial;
-    --shadow-sheet: 0 1px 0 rgb(21 20 58 / 0.08), 0 18px 40px -22px rgb(21 20 58 / 0.45);
+    --shadow-sheet: 0 24px 60px -30px rgb(25 22 79 / 0.32);
+    --shadow-float: 0 14px 34px -14px rgb(25 22 79 / 0.34);
 
     --font-weight-*: initial;
     --font-weight-normal: 400;
@@ -61,10 +65,7 @@
 
 @layer base {
     html {
-        scroll-padding-top: 5.5rem;
-    }
-    body {
-        font-feature-settings: 'tnum' 0;
+        scroll-padding-top: 6.5rem;
     }
     ::selection {
         @apply bg-tag text-ink;
@@ -79,33 +80,34 @@
 }
 
 @utility title-display {
-    @apply font-display text-h1 font-semibold sm:text-display;
-    letter-spacing: -0.012em;
+    @apply font-display text-h2 font-semibold sm:text-h1 xl:text-display;
+    letter-spacing: -0.025em;
 }
 @utility title-page {
-    @apply font-display text-h2 font-semibold sm:text-h1;
-    letter-spacing: -0.01em;
+    @apply font-display text-h2 font-semibold lg:text-h1;
+    letter-spacing: -0.022em;
 }
 @utility title-section {
-    @apply font-display text-h2 font-semibold lg:text-h1;
-    letter-spacing: -0.01em;
+    @apply font-display text-h2 font-semibold;
+    letter-spacing: -0.02em;
 }
 @utility title-block {
     @apply font-display text-h3 font-semibold;
+    letter-spacing: -0.012em;
 }
 @utility lead {
     @apply text-lg text-muted;
 }
 
 @utility container-site {
-    @apply mx-auto w-full max-w-[84rem] px-5 sm:px-8 lg:px-12;
+    @apply mx-auto w-full max-w-[80rem] px-5 sm:px-8 lg:px-10;
 }
 @utility band {
     @apply py-16 lg:py-24;
 }
 
 @utility btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-base font-semibold transition-colors;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition-colors;
 }
 @utility btn-primary {
     @apply btn bg-indigo-600 text-white hover:bg-indigo-800;
@@ -115,7 +117,7 @@
     @apply btn bg-tag text-ink hover:bg-tag-deep focus-visible:outline-tag;
 }
 @utility btn-outline {
-    @apply btn bg-transparent text-ink ring-1 ring-ink/25 hover:bg-indigo-100;
+    @apply btn bg-white text-ink ring-1 ring-line hover:bg-indigo-50;
 }
 @utility btn-outline-dark {
     @apply btn bg-transparent text-white ring-1 ring-white/35 hover:bg-indigo-800 focus-visible:outline-tag;
@@ -126,6 +128,13 @@
 
 @utility field {
     @apply mt-1.5 block w-full rounded-sm border border-line bg-white px-3.5 py-2.5 text-ink placeholder:text-muted/70 focus:border-indigo-600 focus:outline-2 focus:outline-indigo-600;
+}
+
+@utility card {
+    @apply rounded-lg bg-white p-6 shadow-sheet sm:p-7;
+}
+@utility pill {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium;
 }
 
 /* Conteúdo Markdown do blog e textos legais. */

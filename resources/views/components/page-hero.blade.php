@@ -1,11 +1,9 @@
 @props(['title', 'text' => null])
 
-<section class="bg-indigo-950 text-white">
-    <div class="container-site py-12 lg:py-16">
-        <h1 class="title-page max-w-3xl">{{ $title }}</h1>
-        @if ($text)
-            <p class="mt-5 max-w-2xl text-lg text-indigo-100">{{ $text }}</p>
-        @endif
-        {{ $slot }}
-    </div>
+<section class="container-site pt-12 pb-4 lg:pt-16">
+    <h1 class="title-page max-w-3xl">{{ $title }}</h1>
+    @if ($text)
+        <p class="lead mt-5 max-w-2xl">{{ $text }}</p>
+    @endif
+    {{ $slot }}
 </section>
