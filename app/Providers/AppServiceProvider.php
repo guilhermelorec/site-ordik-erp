@@ -22,7 +22,10 @@ class AppServiceProvider extends ServiceProvider
     {
         // Canonical, sitemap e links sempre com o domínio de APP_URL (inclusive atrás de proxy/HTTPS).
         if ($this->app->isProduction()) {
-            URL::forceRootUrl(config('app.url'));
+            if (config('ordik.force_root_url')) {
+                URL::forceRootUrl(config('app.url'));
+            }
+
             URL::forceScheme(parse_url(config('app.url'), PHP_URL_SCHEME) ?: 'https');
         }
     }

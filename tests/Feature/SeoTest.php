@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+
 it('serves the sitemap with the public pages', function () {
     $this->get('/sitemap.xml')
         ->assertOk()
@@ -38,3 +40,15 @@ it('renders meta tags and JSON-LD on the home page', function () {
 it('leaves robots.txt to the route instead of a static file', function () {
     expect(public_path('robots.txt'))->not->toBeFile();
 });
+
+it('uses APP_URL in production but keeps the current host on previews', function (bool $forceRootUrl, string $expectedRoot) {
+    app()->detectEnvironment(fn () => 'production');
+    config(['app.url' => 'https://ordik.com.br', 'ordik.force_root_url' => $forceRootUrl]);
+
+    (new AppServiceProvider(app()))->boot();
+
+    expect(url('/contato'))->toStartWith($expectedRoot);
+})->with([
+    'production' => [true, 'https://ordik.com.br/'],
+    'preview' => [false, 'https://localhost'],
+]);
