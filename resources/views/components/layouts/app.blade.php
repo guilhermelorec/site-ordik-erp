@@ -1,6 +1,8 @@
 @props([
     'title' => null,
-    'description' => null,
+    'description' => 'ERP para pequenas e médias empresas: vendas, estoque, compras, ordens de serviço, frente de caixa, CRM e financeiro integrados. Instalado na sua empresa, funciona sem internet.',
+    'image' => null,
+    'type' => 'website',
 ])
 
 @php
@@ -19,7 +21,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ? "$title | Ordik ERP" : 'Ordik ERP' }}</title>
+    <x-seo :title="$title" :description="$description" :image="$image" :type="$type" />
     <link rel="icon" href="/brand/ordik-icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
