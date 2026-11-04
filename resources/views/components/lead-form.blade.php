@@ -4,7 +4,7 @@
 
 {{-- Formulário de lead: um por página, e o envio sempre volta para #pedido. --}}
 <form id="{{ $id }}" method="POST" action="{{ route('contact.store') }}" novalidate
-    {{ $attributes->class(['bg-white p-6 text-ink sm:p-8 rounded-md', 'shadow-sheet' => ! $dark]) }}>
+    {{ $attributes->class(['rounded-lg bg-white p-6 text-ink sm:p-8', 'shadow-sheet' => ! $dark]) }}>
     @csrf
     {{-- Honeypot: invisível para pessoas, bots costumam preencher. --}}
     <div class="hidden" aria-hidden="true">
@@ -13,7 +13,7 @@
     </div>
 
     @if (session('success'))
-        <div class="mb-6 flex gap-3 rounded-sm bg-indigo-100 p-4 text-sm font-medium" role="status">
+        <div class="mb-6 flex gap-3 rounded-md bg-indigo-50 p-4 text-sm font-medium" role="status">
             <x-heroicon-s-check-circle class="size-5 shrink-0 text-paid" /> {{ session('success') }}
         </div>
     @endif

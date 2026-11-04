@@ -9,8 +9,8 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
             fonts: [
-                google('Barlow', { weights: [400, 500, 600] }),
-                google('Barlow Condensed', { weights: [500, 600] }),
+                google('Figtree', { weights: [400, 500, 600] }),
+                google('Sora', { weights: [600] }),
             ],
         }),
         tailwindcss(),
