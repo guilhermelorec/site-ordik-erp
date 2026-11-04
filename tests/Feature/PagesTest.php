@@ -10,6 +10,8 @@ it('renders every public page', function (string $url) {
     '/implantacao',
     '/empresa',
     '/blog',
+    '/privacidade',
+    '/termos',
     '/blog/controle-de-estoque-como-organizar',
     '/para/lojas',
     '/para/oficinas',
@@ -27,3 +29,7 @@ it('lists the FAQ as structured data on the home page', function () {
 it('returns 404 for unknown or unsafe blog slugs', function (string $url) {
     $this->get($url)->assertNotFound();
 })->with(['/blog/post-inexistente', '/blog/..%2F..%2F.env']);
+
+it('shows the custom 404 page', function () {
+    $this->get('/nao-existe')->assertNotFound()->assertSee('Esta página não existe');
+});

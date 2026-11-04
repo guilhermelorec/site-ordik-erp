@@ -11,6 +11,9 @@ Route::view('/implantacao', 'pages.implantation')->name('implantation');
 Route::view('/empresa', 'pages.about')->name('about');
 Route::view('/contato', 'pages.contact')->name('contact');
 
+Route::view('/privacidade', 'pages.legal.privacy')->name('privacy');
+Route::view('/termos', 'pages.legal.terms')->name('terms');
+
 Route::get('/para/{slug}', fn (string $slug) => view('pages.solution', [
     'slug' => $slug,
     'solution' => config("ordik.solutions.$slug") ?? abort(404),
@@ -27,7 +30,7 @@ Route::post('/contato', [LeadController::class, 'store'])
 
 Route::get('/sitemap.xml', fn () => response()
     ->view('sitemap', ['urls' => [
-        ...array_map(route(...), ['home', 'features', 'pdv', 'implantation', 'about', 'contact', 'blog.index']),
+        ...array_map(route(...), ['home', 'features', 'pdv', 'implantation', 'about', 'contact', 'blog.index', 'privacy', 'terms']),
         ...array_map(fn (string $slug) => route('solutions.show', $slug), array_keys(config('ordik.solutions'))),
         ...Blog::all()->map(fn (object $post) => route('blog.show', $post->slug)),
     ]])
