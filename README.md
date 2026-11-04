@@ -36,7 +36,7 @@ O `vercel.json` usa o runtime comunitário `vercel-php` (PHP 8.3) na região `gr
 - os assets do Filament ficam versionados em `public/`: rode `php artisan filament:assets` ao atualizar o Filament;
 - as migrations rodam fora da Vercel, apontando para o banco de produção: `DB_CONNECTION=pgsql DB_URL=... php artisan migrate --force`.
 
-Defina como variáveis do projeto: `APP_KEY`, `APP_URL`, `DB_URL` (ou `DATABASE_URL_UNPOOLED`, criada pela integração do Neon; não use a URL com pooler, que quebra as transações do cache), `LEADS_NOTIFY_EMAIL`, `ORDIK_CONTACT_EMAIL` e as `MAIL_*` quando houver SMTP.
+Defina como variáveis do projeto: `APP_KEY`, `APP_URL`, `DB_URL` (ou `DATABASE_URL_UNPOOLED`, criada pela integração do Neon; não use a URL com pooler, que quebra as transações do cache), `LEADS_NOTIFY_EMAIL`, `ORDIK_CONTACT_EMAIL` e as `MAIL_*` do servidor SMTP. Sem SMTP válido, o lead continua salvo no painel, mas o aviso por e-mail não chega.
 
 ## Variáveis do projeto
 
