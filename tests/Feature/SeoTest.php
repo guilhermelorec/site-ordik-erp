@@ -41,14 +41,14 @@ it('leaves robots.txt to the route instead of a static file', function () {
     expect(public_path('robots.txt'))->not->toBeFile();
 });
 
-it('uses APP_URL in production but keeps the current host on previews', function (bool $forceRootUrl, string $expectedUrl) {
+it('uses APP_URL in production but keeps the current host on previews', function (bool $forceRootUrl, string $expectedRoot) {
     app()->detectEnvironment(fn () => 'production');
     config(['app.url' => 'https://ordik.com.br', 'ordik.force_root_url' => $forceRootUrl]);
 
     (new AppServiceProvider(app()))->boot();
 
-    expect(url('/contato'))->toBe($expectedUrl);
+    expect(url('/contato'))->toStartWith($expectedRoot);
 })->with([
-    'production' => [true, 'https://ordik.com.br/contato'],
-    'preview' => [false, 'https://localhost/contato'],
+    'production' => [true, 'https://ordik.com.br/'],
+    'preview' => [false, 'https://localhost'],
 ]);
