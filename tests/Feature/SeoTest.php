@@ -30,6 +30,7 @@ it('renders meta tags and JSON-LD on the home page', function () {
         ->assertSee('<link rel="canonical"', false)
         ->assertSee('property="og:image"', false)
         ->assertSee('name="twitter:card"', false)
+        ->assertSee('"@context":"https://schema.org"', false)
         ->assertSee('"@type":"Organization"', false)
         ->assertSee('"@type":"SoftwareApplication"', false);
 });
