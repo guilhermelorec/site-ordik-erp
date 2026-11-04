@@ -9,6 +9,8 @@ it('renders every public page', function (string $url) {
     '/pdv',
     '/implantacao',
     '/empresa',
+    '/blog',
+    '/blog/controle-de-estoque-como-organizar',
     '/para/lojas',
     '/para/oficinas',
     '/para/distribuidoras',
@@ -21,3 +23,7 @@ it('returns 404 for an unknown solution', function () {
 it('lists the FAQ as structured data on the home page', function () {
     $this->get('/')->assertSee('"@type":"FAQPage"', false);
 });
+
+it('returns 404 for unknown or unsafe blog slugs', function (string $url) {
+    $this->get($url)->assertNotFound();
+})->with(['/blog/post-inexistente', '/blog/..%2F..%2F.env']);
