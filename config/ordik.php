@@ -3,6 +3,9 @@
 return [
     'contact_email' => env('ORDIK_CONTACT_EMAIL', 'comercial@ordik.com.br'),
 
+    // Deploys de pré-visualização da Vercel respondem no próprio endereço, não em APP_URL.
+    'force_root_url' => env('VERCEL_ENV', 'production') === 'production',
+
     'leads_notify_email' => env('LEADS_NOTIFY_EMAIL'),
 
     'admin' => [
