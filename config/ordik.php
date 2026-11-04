@@ -131,6 +131,38 @@ return [
         ],
     ],
 
+    // Abas da home: cada frente mostra uma tela real e leva aos módulos dela.
+    'pillars' => [
+        'Gerir' => [
+            'title' => 'Gestão ligada do estoque ao financeiro',
+            'text' => 'Acompanhe faturamento, contas e estoque mínimo em um só painel, por filial ou pelo grupo inteiro.',
+            'image' => 'dashboard',
+            'alt' => 'Dashboard do Ordik com faturamento, ticket médio, contas e gráficos mensais',
+            'modules' => ['gestao', 'estoque', 'compras', 'financeiro'],
+        ],
+        'Vender' => [
+            'title' => 'Do primeiro contato ao caixa',
+            'text' => 'Conduza negócios no CRM, confirme pedidos e venda no balcão. Tudo cai no mesmo estoque e no mesmo financeiro.',
+            'image' => 'crm-kanban',
+            'alt' => 'Kanban do CRM do Ordik com oportunidades por etapa',
+            'modules' => ['crm', 'vendas', 'pdv'],
+        ],
+        'Atender' => [
+            'title' => 'Serviços do início à entrega',
+            'text' => 'Registre equipamento e problema, acompanhe a execução e entregue com peças baixadas e cobrança gerada.',
+            'image' => 'ordens-de-servico',
+            'alt' => 'Lista de ordens de serviço do Ordik com cliente, equipamento, total e status',
+            'modules' => ['ordens-de-servico'],
+        ],
+    ],
+
+    'benefits' => [
+        ['heroicon-o-link', 'Um cadastro para tudo', 'Cliente, produto e fornecedor são cadastrados uma vez e usados em todos os módulos.'],
+        ['heroicon-o-wifi', 'Funciona sem internet', 'O sistema roda na sua rede local. Se a conexão cair, a operação continua.'],
+        ['heroicon-o-lock-closed', 'Seus dados com você', 'Banco de dados e backups ficam no computador da sua empresa.'],
+        ['heroicon-o-user-group', 'Cada um vê o que precisa', 'Seis perfis prontos e permissões separadas para consultar, criar e confirmar.'],
+    ],
+
     // O que muda em cada documento. Linhas da tabela da home.
     'chain' => [
         ['Confirma uma venda', 'Saída dos itens', 'Conta a receber criada'],

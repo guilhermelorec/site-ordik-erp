@@ -25,108 +25,156 @@
         ]" />
     </x-slot:head>
 
-    <section class="bg-indigo-950 text-white">
-        <div class="container-site grid items-center gap-10 py-12 lg:grid-cols-12 lg:gap-8 lg:py-20">
-            <div class="lg:col-span-6">
-                <h1 class="title-display">Confirme a venda. Estoque e financeiro acompanham.</h1>
-                <p class="mt-6 max-w-[34rem] text-lg text-indigo-100">O Ordik é um ERP para pequenas e médias empresas. Vendas, compras, ordens de serviço e caixa atualizam o resto do sistema, sem ninguém digitar duas vezes.</p>
-                <div class="mt-8 flex flex-wrap gap-3">
-                    <a href="#demonstracao" class="btn-tag">Pedir demonstração</a>
-                    <a href="{{ route('features') }}" class="btn-outline-dark">Ver funcionalidades</a>
-                </div>
+    <section class="container-site grid items-center gap-12 pt-10 pb-14 lg:grid-cols-12 lg:gap-8 lg:pt-16 lg:pb-20">
+        <div class="lg:col-span-6">
+            <p class="pill bg-indigo-600 text-white">Instalado na sua empresa</p>
+            <h1 class="title-display mt-5">Venda, estoque e financeiro no mesmo sistema</h1>
+            <p class="lead mt-5 max-w-[34rem]">O Ordik é o ERP para pequenas e médias empresas que querem parar de digitar a mesma informação em vários lugares.</p>
+            <ul class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-indigo-800">
+                @foreach (['Vendas e CRM', 'Estoque e compras', 'Frente de caixa', 'Ordens de serviço', 'Financeiro'] as $item)
+                    <li class="flex items-center gap-1.5"><x-heroicon-m-check class="size-4" /> {{ $item }}</li>
+                @endforeach
+            </ul>
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+                <a href="#demonstracao" class="btn-tag">Pedir demonstração</a>
+                <a href="{{ route('features') }}" class="btn-outline">Ver funcionalidades</a>
             </div>
-            <div class="lg:col-span-6">
-                <p class="mb-3 text-sm text-indigo-100">Teste aqui: confirme a venda e veja o que muda.</p>
-                <x-hero-demo />
+            <p class="mt-3 text-sm text-muted">Retorno em até 1 dia útil.</p>
+        </div>
+
+        <div class="relative lg:col-span-6">
+            <img src="/images/produto/dashboard.webp" alt="Dashboard do Ordik ERP com faturamento, contas e gráficos" width="1600" height="1111" fetchpriority="high"
+                class="aspect-[4/3] w-full rounded-lg object-cover object-left-top shadow-sheet">
+            {{-- Recortes ilustrativos do que o sistema faz: mesmos valores da venda de exemplo. --}}
+            <div aria-hidden="true" class="numeric absolute -bottom-6 left-4 w-56 rounded-md bg-white p-4 text-sm shadow-float sm:-left-6">
+                <p class="flex items-center justify-between font-semibold">Venda #1042 <span class="pill bg-paid px-2.5 py-0.5 text-xs text-white">Confirmada</span></p>
+                <p class="mt-1 text-muted">Total R$ 574,40</p>
+            </div>
+            <div aria-hidden="true" class="numeric absolute top-6 -right-2 hidden w-52 rounded-md bg-white p-4 text-sm shadow-float sm:block lg:-right-6">
+                <p class="font-semibold">Estoque atualizado</p>
+                <p class="mt-1 flex justify-between text-muted">SSD 480GB <span><s>30</s> <strong class="rounded-sm bg-tag px-1 font-semibold text-ink">28</strong></span></p>
             </div>
         </div>
+    </section>
+
+    <section class="bg-white">
+        <ul class="container-site flex flex-wrap justify-between gap-x-8 gap-y-3 py-7 font-display font-semibold text-muted">
+            @foreach (config('ordik.modules') as $module)
+                <li>{{ $module['name'] }}</li>
+            @endforeach
+        </ul>
     </section>
 
     <section class="container-site band">
-        <div class="max-w-2xl">
-            <h2 class="title-section">Cada documento já resolve o que vem depois</h2>
+        <div class="mx-auto max-w-2xl text-center">
+            <h2 class="title-section">Confirme uma venda e veja o que acontece</h2>
             <p class="lead mt-4">Quem vende não precisa avisar o estoque, e o financeiro não precisa perguntar o que foi vendido.</p>
         </div>
-
-        <table class="mt-10 w-full text-left">
-            <thead class="text-sm text-muted max-sm:sr-only">
-                <tr>
-                    <th scope="col" class="w-2/5 pb-3 font-medium">Quando você</th>
-                    <th scope="col" class="pb-3 font-medium">Estoque</th>
-                    <th scope="col" class="pb-3 font-medium">Financeiro</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (config('ordik.chain') as [$event, $stock, $money])
-                    <tr class="border-t border-ink/20 max-sm:block max-sm:py-4">
-                        <th scope="row" class="py-4 pr-6 font-display text-h3 font-semibold max-sm:block max-sm:p-0">{{ $event }}</th>
-                        <td class="py-4 pr-6 sm:text-lg max-sm:mt-2 max-sm:block max-sm:p-0"><span class="text-muted sm:hidden">Estoque: </span>{{ $stock }}</td>
-                        <td class="py-4 sm:text-lg max-sm:block max-sm:p-0"><span class="text-muted sm:hidden">Financeiro: </span>{{ $money }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </section>
-
-    <section class="overflow-hidden bg-white">
-        <div class="container-site band grid items-center gap-10 lg:grid-cols-12">
-            <div class="lg:col-span-4">
-                <h2 class="title-section">Abra o sistema e veja como a empresa está</h2>
-                <p class="lead mt-4">O dashboard reúne faturamento, ticket médio, contas e produtos abaixo do mínimo. Escolha uma filial, uma empresa ou o grupo inteiro.</p>
-                <a href="{{ route('features') }}#gestao" class="link-underline mt-6 inline-block">Ver gestão e acessos</a>
-            </div>
-            <x-screen src="dashboard" alt="Dashboard do Ordik ERP com faturamento, ticket médio, contas a receber e a pagar e gráficos mensais" caption="Tela real do sistema, com dados de demonstração." class="lg:col-span-8 lg:-mr-24 xl:-mr-40" />
+        <div class="mx-auto mt-10 max-w-4xl">
+            <x-hero-demo />
         </div>
-    </section>
-
-    <section id="modulos" class="container-site band grid gap-8 lg:grid-cols-12">
-        <div class="lg:col-span-4">
-            <div class="lg:sticky lg:top-28">
-                <h2 class="title-section">O que vem no Ordik</h2>
-                <p class="lead mt-4">Um cadastro de cliente, produto e fornecedor serve para todos os módulos.</p>
-            </div>
-        </div>
-        <ul class="lg:col-span-7 lg:col-start-6">
-            @foreach (config('ordik.modules') as $slug => $module)
-                <li class="border-t border-line last:border-b">
-                    <a href="{{ $slug === 'pdv' ? route('pdv') : route('features').'#'.$slug }}" class="group grid gap-1 py-4 sm:grid-cols-[13rem_1fr] sm:gap-6">
-                        <span class="font-display text-h3 font-semibold group-hover:text-indigo-600">{{ $module['name'] }}</span>
-                        <span class="self-center text-muted">{{ $module['summary'] }}</span>
-                    </a>
+        <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            @foreach (config('ordik.chain') as [$event, $stock, $money])
+                <li>
+                    <p class="font-semibold">{{ $event }}</p>
+                    <p class="mt-1 text-sm text-muted">{{ $stock }}</p>
+                    <p class="text-sm text-muted">{{ $money }}</p>
                 </li>
             @endforeach
         </ul>
     </section>
 
-    <section id="para-quem" class="bg-white">
+    <section class="bg-white">
         <div class="container-site band">
-            <h2 class="title-section max-w-2xl">Três rotinas que o Ordik acompanha do começo ao fim</h2>
-            <div class="mt-12 grid gap-12 lg:grid-cols-3 lg:gap-10">
-                @foreach (config('ordik.solutions') as $slug => $solution)
-                    <article>
-                        <h3 class="title-block">{{ $solution['name'] }}</h3>
-                        <ol class="mt-5 space-y-3">
-                            @foreach ($solution['journey'] as $step)
-                                <li class="flex gap-3">
-                                    <span class="numeric w-4 shrink-0 font-semibold text-indigo-600">{{ $loop->iteration }}</span>
-                                    <span>{{ $step }}</span>
-                                </li>
+            <h2 class="title-section mx-auto max-w-2xl text-center">Tudo que a operação faz, conectado no mesmo lugar</h2>
+
+            <div data-pillars class="relative mt-12 lg:min-h-[32rem]">
+                @foreach (config('ordik.pillars') as $name => $pillar)
+                    <details name="pillars" @if ($loop->first) open @endif class="group mb-3 rounded-md bg-paper p-5 open:bg-indigo-50 lg:w-[38%]">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
+                            <span>
+                                <span class="pill bg-white text-indigo-800">{{ $name }}</span>
+                                <span class="title-block mt-2 block">{{ $pillar['title'] }}</span>
+                            </span>
+                            <x-heroicon-m-chevron-down class="size-5 shrink-0 text-indigo-600 group-open:hidden" />
+                        </summary>
+                        <p class="mt-3 text-muted">{{ $pillar['text'] }}</p>
+                        <ul class="mt-3 space-y-1">
+                            @foreach ($pillar['modules'] as $slug)
+                                <li><a href="{{ route('features') }}#{{ $slug }}" class="link-underline text-sm">{{ config("ordik.modules.$slug.name") }}</a></li>
                             @endforeach
-                        </ol>
-                        <a href="{{ route('solutions.show', $slug) }}" class="link-underline mt-5 inline-block">Ordik para {{ Str::lower($solution['name']) }}</a>
-                    </article>
+                        </ul>
+                        <div class="mt-5 lg:absolute lg:top-0 lg:right-0 lg:mt-0 lg:w-[58%]">
+                            <img src="/images/produto/{{ $pillar['image'] }}.webp" alt="{{ $pillar['alt'] }}" width="1600" height="1111" loading="lazy" decoding="async" class="w-full rounded-lg shadow-sheet">
+                        </div>
+                    </details>
+                @endforeach
+            </div>
+            <p class="mt-4 text-sm text-muted lg:text-right">Telas reais do sistema, com dados de demonstração.</p>
+        </div>
+    </section>
+
+    <section class="container-site band">
+        <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            @foreach (config('ordik.benefits') as [$icon, $title, $text])
+                <li class="card">
+                    <x-dynamic-component :component="$icon" class="size-7 text-indigo-600" />
+                    <h3 class="mt-4 text-lg font-semibold">{{ $title }}</h3>
+                    <p class="mt-2 text-muted">{{ $text }}</p>
+                </li>
+            @endforeach
+        </ul>
+    </section>
+
+    <section class="bg-indigo-950 text-white">
+        <div class="container-site band">
+            <h2 class="title-section mx-auto max-w-2xl text-center">Todos os recursos que a sua empresa precisa no dia a dia</h2>
+            <div class="mt-10 space-y-8">
+                @foreach (config('ordik.pillars') as $name => $pillar)
+                    <div class="grid gap-3 lg:grid-cols-[8rem_1fr] lg:items-start">
+                        <h3 class="pt-1.5 font-semibold text-tag">{{ $name }}</h3>
+                        <ul class="flex flex-wrap gap-2">
+                            @foreach ($pillar['modules'] as $slug)
+                                @foreach (array_keys(config("ordik.modules.$slug.features")) as $feature)
+                                    <li><a href="{{ route('features') }}#{{ $slug }}" class="pill bg-white/10 text-white hover:bg-white/20">{{ $feature }}</a></li>
+                                @endforeach
+                            @endforeach
+                        </ul>
+                    </div>
                 @endforeach
             </div>
         </div>
     </section>
 
-    <section class="bg-tag">
-        <div class="container-site band grid gap-8 lg:grid-cols-12">
-            <h2 class="title-display lg:col-span-7">Instalado na sua empresa. Os dados ficam com você.</h2>
-            <div class="lg:col-span-4 lg:col-start-9">
-                <p class="text-lg">Um instalador coloca o sistema e o banco de dados em um computador seu. Os outros acessam pela rede local, mesmo com a internet fora do ar.</p>
-                <a href="{{ route('implantation') }}" class="btn mt-6 bg-ink text-white hover:bg-indigo-950">Como funciona a implantação</a>
+    <section id="para-quem" class="container-site band">
+        <h2 class="title-section mx-auto max-w-2xl text-center">Uma rotina completa para cada tipo de negócio</h2>
+        <div class="mt-12 grid gap-5 lg:grid-cols-3">
+            @foreach (config('ordik.solutions') as $slug => $solution)
+                <article class="card flex flex-col">
+                    <h3 class="title-block">{{ $solution['name'] }}</h3>
+                    <ol class="mt-5 flex-1 space-y-3">
+                        @foreach ($solution['journey'] as $step)
+                            <li class="flex gap-3">
+                                <span class="numeric w-4 shrink-0 font-semibold text-indigo-600">{{ $loop->iteration }}</span>
+                                <span>{{ $step }}</span>
+                            </li>
+                        @endforeach
+                    </ol>
+                    <a href="{{ route('solutions.show', $slug) }}" class="link-underline mt-5 inline-block">Ordik para {{ Str::lower($solution['name']) }}</a>
+                </article>
+            @endforeach
+        </div>
+    </section>
+
+    <section class="container-site">
+        <div class="grid items-center gap-8 overflow-hidden rounded-xl bg-indigo-950 text-white lg:grid-cols-2">
+            <div class="p-6 sm:p-10 lg:p-14">
+                <p class="pill bg-tag text-ink">Implantação</p>
+                <h2 class="title-section mt-4">Instalado na sua empresa. Os dados ficam com você.</h2>
+                <p class="mt-4 text-lg text-indigo-100">Um instalador coloca o sistema e o banco de dados em um computador seu. Os outros acessam pela rede local, mesmo com a internet fora do ar.</p>
+                <a href="{{ route('implantation') }}" class="btn-tag mt-7">Como funciona a implantação</a>
             </div>
+            <img src="/images/produto/pdv.webp" alt="Terminal de frente de caixa do Ordik com itens lançados" width="1600" height="1000" loading="lazy" decoding="async" class="h-full w-full object-cover object-left-top">
         </div>
     </section>
 
